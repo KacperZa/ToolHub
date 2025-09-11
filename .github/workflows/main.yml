@@ -1,0 +1,32 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Ustaw zmienne środowiskowe
+        run: |
+          echo "NASA_API_KEY=${{ secrets.NASA_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Zbuduj stronę
+        run: |
+          mkdir -p build
+          # Wrzucamy klucz API do pliku JS, który użyje Twoja strona
+          echo "const API_KEY='${NASA_API_KEY}';" > build/config.js
+          cp index.html build/index.html
+          cp -r css build/css || true
+          cp -r js build/js || true
+
+      - name: Deploy na GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
