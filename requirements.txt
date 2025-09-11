@@ -1,0 +1,6 @@
+requests
+json 
+dotenv
+os
+flask
+datetime
