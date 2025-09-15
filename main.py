@@ -38,17 +38,31 @@ def get_nasa_apod_timeline(poczatek, koniec):
     else:
         print(f"Error: {response.status_code}")
 
+def get_nasa_apod_random():
+    
+    url = "https://api.nasa.gov/planetary/apod"
+    params = {
+        "api_key": os.getenv("API"),
+        "count": 1
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data[0]
+    else:
+        print(f"Error: {response.status_code}")
+        return None
+
 app = Flask(__name__, template_folder='templates', static_folder='static',)
 
 # apod_info = get_nasa_apod(dzien)
 # print(f"Tytuł: {apod_info['title']}")
 # print(f"Data: {apod_info['date']}")
 # print(f"Data: {apod_info['explanation']}")
-
+dzisiaj = date.today().isoformat()
 @app.route('/', methods=['GET', 'POST'])
 def apod():
     # timestamp = int(time.time())
-    dzisiaj = date.today().isoformat()
     error = None
     wybrana_data = None
     if request.method == 'POST':
@@ -71,7 +85,7 @@ def today():
 
     error = None
     wybrana_data = None
-    zdjecie_dzisiaj = date.today()
+    zdjecie_dzisiaj = date.today().isoformat()
     wybrana_data = get_nasa_apod(zdjecie_dzisiaj)
             
     return render_template('dzisiaj.html', get_nasa_apod = wybrana_data, error = error)
@@ -81,7 +95,7 @@ def timeline():
     # timestamp = int(time.time())
 
     error = None
-    wybrana_data = None
+    wybrany_okres = None
     if request.method == 'POST':
         poczatek = request.form.get('poczatkowa_data')
         koniec = request.form.get('koncowa_data')
@@ -91,9 +105,14 @@ def timeline():
         else:
             wybrany_okres = get_nasa_apod_timeline(poczatek, koniec)
              
-    return render_template('dzisiaj.html', get_nasa_apod = wybrana_data, error = error)
+    return render_template('timeline.html', get_nasa_apod_timeline = wybrany_okres, error = error, dzisiaj = dzisiaj)
 
-    
+@app.route('/random', methods = ['GET', 'POST'])
+def random():
+    wybrany_random = None
+    wybrany_random = get_nasa_apod_random()
+    return render_template('random.html', get_nasa_apod_random = wybrany_random)
+
     
 
 
