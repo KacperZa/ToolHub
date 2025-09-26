@@ -69,7 +69,6 @@ body{
 
 .container .zawartosc .miniatura_zdjecie{
     max-width: 100%;
-    /* max-width: 70vw; */
     max-height: 70vh;
     width: auto;
     height: auto;
@@ -113,7 +112,7 @@ footer {
     font-size: 0.9em;
     color: #555;
 }
-.container .kalendarz input[type="date"]{
+.container .kalendarz #wybor_daty{
     background-color: #5e666d;
     max-width: 100%;
     padding: 15px;
@@ -126,8 +125,10 @@ footer {
     font-family: "Orbitron", sans-serif;
 
 }
-.container .kalendarz input[type="submit"]{
+.container .kalendarz #przycisk, input[type="submit"] {
     font-family: "Orbitron", sans-serif;
     background-color: #555;
     border-radius: 5px;
+    padding: 3px 10px;
+    margin-top: 5px;
 }
