@@ -55,11 +55,12 @@
     </div>
 
     <div class="kalendarz">
-        <form action="" method="post">
-            Podaj datę dla której chcesz sprawdzić zdjęcia: <br>
-            <input type="date" name="data_apod" id="" required max="{{ dzisiaj }}"> <br>
-            <input type="submit" value="Sprawdź">
-        </form>    
+        <form  method="post">
+            {{ form.hidden_tag() }}
+            {{ form.data_apod.label }} {{form.data_apod(type="date", id="wybor_daty") }}
+            {{ form.submit(id="przycisk") }}
+        </form> 
+   
     </div>
 
 </div>
