@@ -4,16 +4,27 @@ import dotenv
 import os
 from flask import Flask, render_template, request
 from datetime import datetime, date, time 
+from flask_wtf import FlaskForm
+from wtforms import DateField, SubmitField
+from wtforms.validators import DataRequired
 
 dotenv.load_dotenv()
 dzien = None
-def get_nasa_apod(dzien):
+
+app = Flask(__name__, template_folder='templates', static_folder='static',)
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+
+class kalendarz_form(FlaskForm):
+    data_apod = DateField("Wybierz datę dla której chcesz sprawdzić zdjęcie: ", format="%Y-%m-%d", validators=[DataRequired()])
+    submit = SubmitField("Sprawdź")
     
+def get_nasa_apod(data_apod):
 
     url = "https://api.nasa.gov/planetary/apod"
     params = {
         "api_key": os.getenv("API"),
-        "date": dzien
+        # "date": dzien
+        "date": data_apod
     }
     response = requests.get(url, params=params)
     if response.status_code == 200:
@@ -45,6 +56,10 @@ def get_nasa_apod_random():
         "api_key": os.getenv("API"),
         "count": 1
     }
+            #  {% comment %} Podaj datę dla której chcesz sprawdzić zdjęcia: <br>
+            # <input type="date" name="data_apod" id="" required max="{{ dzisiaj }}"> <br>
+            # <input type="submit" value="Sprawdź"> {% endcomment %}
+           
     response = requests.get(url, params=params)
     if response.status_code == 200:
         data = response.json()
@@ -53,7 +68,6 @@ def get_nasa_apod_random():
         print(f"Error: {response.status_code}")
         return None
 
-app = Flask(__name__, template_folder='templates', static_folder='static',)
 
 # apod_info = get_nasa_apod(dzien)
 # print(f"Tytuł: {apod_info['title']}")
@@ -62,26 +76,23 @@ app = Flask(__name__, template_folder='templates', static_folder='static',)
 dzisiaj = date.today().isoformat()
 @app.route('/', methods=['GET', 'POST'])
 def apod():
-    # timestamp = int(time.time())
+
+    form = kalendarz_form()
+
     error = None
     wybrana_data = None
-    if request.method == 'POST':
-        zdjecie = request.form.get('data_apod')
+    if form.validate_on_submit():
+        zdjecie = form.data_apod.data.strftime("%Y-%m-%d")
 
-
-        if not zdjecie:
-            error = "Data jest niepoprawna"
-        else:
-            wybrana_data = get_nasa_apod(zdjecie)
+        wybrana_data = get_nasa_apod(zdjecie)
         
-            if wybrana_data is None:
-                    error = "Nie udało się pobrać danych z NASA API"
+        if wybrana_data is None:
+            error = "Nie udało się pobrać danych z NASA API"
             
-    return render_template('index.html', get_nasa_apod = wybrana_data, error = error, dzisiaj = dzisiaj)
+    return render_template('index.html', get_nasa_apod = wybrana_data, error = error, dzisiaj = dzisiaj, form = form)
 
 @app.route('/today', methods = ['GET', 'POST'])
 def today():
-    # timestamp = int(time.time())
 
     error = None
     wybrana_data = None
@@ -92,7 +103,6 @@ def today():
 
 @app.route('/timeline', methods = ['GET', 'POST'])
 def timeline():
-    # timestamp = int(time.time())
 
     error = None
     wybrany_okres = None
