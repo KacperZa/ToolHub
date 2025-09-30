@@ -30,16 +30,16 @@
     </div>
     
     <div class="zawartosc">
-        {% if get_nasa_apod.media_type == "image" %}
-        <a href="{{ get_nasa_apod.url }}" target="_blank">
-        <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
-        </a>
-        {% endif %}
-        
-        {% if get_nasa_apod.media_type == "video" %}
-        <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
-        {% endif %}
-        
+            {% if get_nasa_apod.media_type == "image" %}
+            <a href="{{ get_nasa_apod.url }}" target="_blank">
+            <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
+            </a>
+            {% endif %}
+            
+            {% if get_nasa_apod.media_type == "video" %}
+            <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
+            {% endif %}
+            
         <div class="text">
             {% if get_nasa_apod %}
             <h2>{{get_nasa_apod.title}}</h2>
@@ -57,7 +57,7 @@
     <div class="kalendarz">
         <form  method="post">
             {{ form.hidden_tag() }}
-            {{ form.data_apod.label }} {{form.data_apod(type="date", id="wybor_daty") }}
+            {{ form.data_apod.label }} {{form.data_apod(type="date", id="wybor_daty", max = dzisiaj) }} <br>
             {{ form.submit(id="przycisk") }}
         </form> 
    
