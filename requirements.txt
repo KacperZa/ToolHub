@@ -1,5 +1,0 @@
-requests
-dotenv
-os
-flask
-datetime
