@@ -15,7 +15,7 @@ app = Flask(__name__, template_folder='templates', static_folder='static',)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 class kalendarz_form(FlaskForm):
-    data_apod = DateField("Wybierz datę dla której chcesz sprawdzić zdjęcie: ", format="%Y-%m-%d", validators=[DataRequired()])
+    data_apod = DateField("Wybierz datę dla której chcesz sprawdzić zdjęcie: ", format="%Y-%m-%d", validators=[DataRequired()], name="date")
     submit = SubmitField("Sprawdź")
     
 def get_nasa_apod(data_apod):
