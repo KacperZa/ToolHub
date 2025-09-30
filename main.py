@@ -74,7 +74,12 @@ def get_nasa_apod_random():
 # print(f"Data: {apod_info['date']}")
 # print(f"Data: {apod_info['explanation']}")
 dzisiaj = date.today().isoformat()
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/apod', methods=['GET', 'POST'])
 def apod():
 
     form = kalendarz_form()
@@ -89,7 +94,7 @@ def apod():
         if wybrana_data is None:
             error = "Nie udało się pobrać danych z NASA API"
             
-    return render_template('index.html', get_nasa_apod = wybrana_data, error = error, dzisiaj = dzisiaj, form = form)
+    return render_template('apod.html', get_nasa_apod = wybrana_data, error = error, dzisiaj = dzisiaj, form = form)
 
 @app.route('/today', methods = ['GET', 'POST'])
 def today():

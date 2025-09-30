@@ -73,10 +73,18 @@ body {
   height: 100%;
   flex: 1.25;
   padding: 10px;
+  height: 100vh;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
+  height: 100vh;
   font-family: "Orbitron", sans-serif;
+}
+
+.container .kalendarz .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container .kalendarz #wybor_daty {
