@@ -22,43 +22,49 @@
     {% endblock %}
 
     {% block body %}
-<div class="container">
-        <div class ="menu">
-        <a href="{{ url_for('today') }}">Dzisiejsze zdjęcie</a> <br>
-        <a href="{{ url_for('apod') }}">Zdjęcie dnia</a> <br>
-        <a href="{{ url_for('random') }}">Kosmiczna losowość</a> <br>
-        </div>
     
+<div class="container">
+    <div class ="menu">
+        <a href="{{ url_for('main.today') }}">Dzisiejsze zdjęcie</a> <br>
+        <a href="{{ url_for('main.apod') }}">Zdjęcie dnia</a> <br>
+        <a href="{{ url_for('main.random') }}">Kosmiczna losowość</a> <br>
+    </div>
     <div class="zawartosc">
-        {% if get_nasa_apod_random.media_type == "image" %}
-        <a href="{{ get_nasa_apod_random.url }}" target="_blank">
-        <img src="{{ get_nasa_apod_random.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
-        </a>
-        {% endif %}
-        
-        {% if get_nasa_apod_random.media_type == "video" %}
-        <iframe src="{{ get_nasa_apod_random.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
-        {% endif %}
-        
-        <div class="text">
-            {% if get_nasa_apod_random %}
-            <h2>{{ get_nasa_apod_random.title}}</h2>
-            {% endif %}
-            {% if get_nasa_apod_random %}
-            <q>{{get_nasa_apod_random.explanation}}</q> <br>
+            {% if get_nasa_apod.media_type == "image" %}
+            <a href="{{ get_nasa_apod.url }}" target="_blank">
+            <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
+            </a>
             {% endif %}
             
-            {% if get_nasa_apod_random %}
-            <h3>{{get_nasa_apod_random.date}}</h3>
+            {% if get_nasa_apod.media_type == "video" %}
+            <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
+            {% endif %}
+            
+        <div class="text">
+            {% if get_nasa_apod %}
+            <h2>{{get_nasa_apod.title}}</h2>
+            {% endif %}
+            {% if get_nasa_apod %}
+            <q>{{get_nasa_apod.explanation}}</q> <br>
+            {% endif %}
+            
+            {% if get_nasa_apod %}
+            <h3>{{get_nasa_apod.date}}</h3>
             {% endif %}
         </div>
     </div>
 
     <div class="kalendarz">
-        <form action="" method="post">
-            Kliknij przycisk aby wyświetlić losowe zdjęcie dnia. <br>
-            <input type="submit" value="Sprawdź">
-        </form>    
+        <form  method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+            {{ form.data_apod.label }} {{form.data_apod(type="date", id="wybor_daty", max = dzisiaj) }}
+            </div>
+            <div class="form-group">
+            {{ form.submit(id="przycisk") }}
+        </div>
+        </form> 
+   
     </div>
 
 </div>

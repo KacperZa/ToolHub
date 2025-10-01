@@ -19,11 +19,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Orbitron:wght@400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Story+Script&display=swap" rel="stylesheet">
     <title>Photo of the day</title>
-        {% block body %}
-    <div class="container">
+    {% endblock %}
+
+    {% block body %}
+<div class="container">
         <div class ="menu">
-        <a href="{{ url_for('today') }}">Dzisiejsze zdjęcie</a> <br>
-        <a href="{{ url_for('apod') }}">Zdjęcie dnia</a> <br>
-        <a href="{{ url_for('random') }}">Kosmiczna losowość</a> <br>
+        <a href="{{ url_for('main.today') }}">Dzisiejsze zdjęcie</a> <br>
+        <a href="{{ url_for('main.apod') }}">Zdjęcie dnia</a> <br>
+        <a href="{{ url_for('main.random') }}">Kosmiczna losowość</a> <br>
     </div>
+    
+    <div class="zawartosc">
+        {% if get_nasa_apod.media_type == "image" %}
+        <a href="{{ get_nasa_apod.url }}" target="_blank">
+        <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
+        </a>
+        {% endif %}
+        
+        {% if get_nasa_apod.media_type == "video" %}
+        <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
+        {% endif %}
+        
+        <div class="text">
+            {% if get_nasa_apod %}
+            <h2>{{get_nasa_apod.title}}</h2>
+            {% endif %}
+            {% if get_nasa_apod %}
+            <q>{{get_nasa_apod.explanation}}</q> <br>
+            {% endif %}
+            
+            {% if get_nasa_apod %}
+            <h3>{{get_nasa_apod.date}}</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="kalendarz">
+
+ 
+    </div>
+
+</div>
     {% endblock %}
