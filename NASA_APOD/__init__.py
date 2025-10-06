@@ -12,6 +12,7 @@ def create_app():
 
     # Konfiguracja
     app.config['CACHE_TYPE'] = "SimpleCache"
+    
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

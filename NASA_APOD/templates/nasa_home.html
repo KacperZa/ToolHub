@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+    {% block head%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}?v={{ timestamp }}">
+    
+    <!-- Czcionka do tekstu w klasie zawartosc -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Story+Script&display=swap" rel="stylesheet">
+    
+    <!-- Czcionka do tekstu w kal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Story+Script&display=swap" rel="stylesheet">
+   
+    <!-- Czcionka Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Orbitron:wght@400..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Story+Script&display=swap" rel="stylesheet">
+    <title>Photo of the day</title>
+        {% endblock %}
+        
+        {% block body %}
+    <div class="container">
+        <div class ="menu">
+            <a href="{{ url_for('main.today') }}">Dzisiejsze zdjęcie</a> <br>
+            <a href="{{ url_for('main.apod') }}">Zdjęcie dnia</a> <br>
+            <a href="{{ url_for('main.random') }}">Kosmiczna losowość</a> <br>
+            
+        </div>
+    </div>
+    {% endblock %}

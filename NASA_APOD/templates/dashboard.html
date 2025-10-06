@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block body %}
 
 <div class="container">
     <h1>Witaj, {{username}}!</h1>
     <p>Witaj w panelu użytkownika</p>
+    <a href="{{url_for('main.logout')}}" class="btn btn-logout">Logout</a>
 </div>
 
 {% endblock body %}

@@ -1,19 +1,65 @@
 from datetime import date
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, session, url_for
 from .nasa_api import get_nasa_apod, get_nasa_apod_random, get_nasa_apod_timeline, dzisiaj
-from .forms import kalendarz_form
-from .extensions import cache
+from .forms import kalendarz_form, User
+from .extensions import cache, db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('main', __name__)
 
-# @app.route('/')
-# def home():
-#     if "username" in session:
-#         return redirect(url_for('dashboard'))
-#     return render_template('index.html')
+
 @bp.route('/')
 def home():
+    if "username" in session:
+        return redirect(url_for('main.dashboard'))
     return render_template("index.html")
+
+@bp.route('/apps')
+def apps():
+    return render_template('apps.html')
+# Login
+@bp.route('/login', methods=["POST"])
+def login():
+    # Zbieranie info z formularza
+    username = request.form['username']
+    password = request.form['password']
+
+    # Sprawdzanie czy jest w bazie danych
+    user = User.query.filter_by(username = username).first()
+    if user and user.check_password(password):
+        session['username'] = username
+        return redirect(url_for('main.dashboard'))
+    else:
+        return render_template("index.html")
+    
+    # Rejestracja
+@bp.route('/register', methods=["POST"])
+def register():
+    username = request.form['username']
+    password = request.form['password']
+    user = User.query.filter_by(username = username).first()
+    if user:
+        return render_template("index.html", error="Użytkownik już istnieje!")
+    else:
+        new_user = User(username=username)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+        session['username'] = username
+        return redirect(url_for("main.dashboard"))
+# Dashboard
+@bp.route("/dashboard")
+def dashboard():
+    if "username" in session:
+        return render_template("dashboard.html", username = session['username'])
+    return redirect(url_for('main.home'))
+
+# Logout
+@bp.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('main.home'))
+
 
 @bp.route('/apod', methods=['GET', 'POST'])
 @cache.cached(timeout=60*60)
