@@ -1,0 +1,71 @@
+
+// ZMIENNE
+$background-color: #afb0c7;
+$background-color-menu: #afb0c7;
+$background-color-footer: #60646e;
+$background-color-button: #181b29;
+
+body{
+    background-color: $background-color;
+}
+.menu {
+    width: 100vw;
+    height: 100px;
+    // border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: row-reverse;
+
+    .output {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;              
+    }
+    .input {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+
+        form {  
+            textarea {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 10px;
+            }
+            button {
+                padding: 10px 20px;
+                border-radius: 15px;
+                background-color: $background-color-button;
+                color: white;
+            }
+        }
+        p {
+            font-size: 23px
+        }
+        border: 1px solid black;
+        justify-content: center;
+        align-items: center;
+
+        textarea {
+            width: fit-content;
+        }
+    }
+}
+
+footer {
+    background-color: $background-color-button;
+    color: white;
+}

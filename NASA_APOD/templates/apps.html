@@ -1,1 +1,41 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
+
+{% block extracss %}
+<link rel="stylesheet" type='text/css' href=" {{ url_for('static', filename='styles3.css') }}">
+{% endblock extracss %}
+
+{% block title %}Wybór apki{% endblock title %}
+
+
+    {% block body %}
+
+    <div class="menu">
+        <h1>ToolHub - coś dla ciebie!</h1>
+    </div>
+<div class="container">
+    {% for card in cards %}
+    {% if loop.index0 % 6 == 0 %}
+    <div class="row">
+    {% endif %}
+        <div class="card">
+            <div class="emoji">
+                {{card.emoji}}
+            </div>
+            <div class="opis">
+                {{card.opis}}
+            </div>
+            <div class="button">
+                <button><a href="{{url_for(card.url)}}">Wbijaj!</a></button>
+            </div>
+        </div>
+    {% if loop.index % 6 == 0 or loop.last %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+
+
+
+{% endblock body %}

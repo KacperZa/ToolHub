@@ -13,10 +13,27 @@ def home():
     if "username" in session:
         return redirect(url_for('main.dashboard'))
     return render_template("index.html")
+    
 
 @bp.route('/apps')
 def apps():
-    return render_template('apps.html')
+    cards = [
+        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
+        {"emoji": "🔤", "opis":"Chcesz policzyć wyrazy w tekscie? A może sprawdzić statystyki tekstu? Musisz to sprawdzić!", "url":"main.analyzer"},
+        {"emoji": "🧮", "opis":"Lubisz matematyke? To coś dla ciebie!", "url":"main.nasa_home"},
+        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
+        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
+        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
+        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
+    ]
+    return render_template('apps.html', cards=cards)
+
+@bp.route('/analyzer', methods=['POST', 'GET'])
+def analyzer():
+    # if request.method == 'POST':
+    #     pass 
+    return render_template('analyzer.html')
+
 # Login
 @bp.route('/login', methods=["POST"])
 def login():
@@ -60,9 +77,12 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('main.home'))
 
+@bp.route('/nasa_home')
+def nasa_home():
+    return render_template('nasa_home.html')
 
 @bp.route('/apod', methods=['GET', 'POST'])
-@cache.cached(timeout=60*60)
+# @cache.cached(timeout=60*60)
 def apod():
 
     form = kalendarz_form()
@@ -108,7 +128,7 @@ def timeline():
     return render_template('timeline.html', get_nasa_apod_timeline = wybrany_okres, error = error, dzisiaj = dzisiaj)
 
 @bp.route('/random', methods = ['GET', 'POST'])
-@cache.cached(timeout=60*60)
+# @cache.cached(timeout=60*60)
 def random():
     wybrany_random = None
     wybrany_random = get_nasa_apod_random()

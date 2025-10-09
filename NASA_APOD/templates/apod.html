@@ -30,6 +30,7 @@
         <a href="{{ url_for('main.random') }}">Kosmiczna losowość</a> <br>
     </div>
     <div class="zawartosc">
+        {% if get_nasa_apod%}
             {% if get_nasa_apod.media_type == "image" %}
             <a href="{{ get_nasa_apod.url }}" target="_blank">
             <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
@@ -39,6 +40,9 @@
             {% if get_nasa_apod.media_type == "video" %}
             <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
             {% endif %}
+        {% else %}
+            <div class="brak">Brak zdjęcia.😔</div>
+        {% endif %}
             
         <div class="text">
             {% if get_nasa_apod %}

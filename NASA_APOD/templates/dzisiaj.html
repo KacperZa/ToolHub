@@ -30,16 +30,19 @@
     </div>
     
     <div class="zawartosc">
-        {% if get_nasa_apod.media_type == "image" %}
-        <a href="{{ get_nasa_apod.url }}" target="_blank">
-        <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
-        </a>
+        {% if get_nasa_apod%}
+            {% if get_nasa_apod.media_type == "image" %}
+            <a href="{{ get_nasa_apod.url }}" target="_blank">
+            <img src="{{ get_nasa_apod.url }}" alt="Zdjęcie dnia" class="miniatura_zdjecie">
+            </a>
+            {% endif %}
+            
+            {% if get_nasa_apod.media_type == "video" %}
+            <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
+            {% endif %}
+        {% else %}
+            <div class="brak">Brak zdjęcia na dziś 😔</div>
         {% endif %}
-        
-        {% if get_nasa_apod.media_type == "video" %}
-        <iframe src="{{ get_nasa_apod.url }}" frameborder="0" allowfullscreen class="miniatura_film"></iframe>
-        {% endif %}
-        
         <div class="text">
             {% if get_nasa_apod %}
             <h2>{{get_nasa_apod.title}}</h2>

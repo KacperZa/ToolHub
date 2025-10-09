@@ -1,5 +1,73 @@
-$background-color: #F5EFE6;
+$background-color: #ccc9ff;
+$background-color-card: #888cf2;
+$background-color-button: #4f5697;
+$background-color-footer: #888cf2;
 
 body {
     background-color: $background-color;
+}
+
+.menu {
+    width: 100vw;
+    height: 100px;
+    // border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+
+
+    .row{
+    display: flex;
+    flex-direction: row;
+    // flex: 1;
+    padding: 25px;
+    gap: 25px;      
+    justify-content: space-evenly;
+    // border: 1px solid black;
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            width: 300px;
+            border-radius: 15px;
+            // border: 1px solid black;
+            background-color: $background-color-card;
+            box-shadow: 3px 3px 4px #696969;
+
+            .emoji {
+                width: 100%;
+                height: 150px;
+                font-size: 50px;
+            }
+
+            .opis {
+                width: 100%;
+                height: 150px;
+            }
+
+            .button {
+                width: 100%;
+                height: 100px;
+            }
+            button{
+                background-color: $background-color-button;
+                padding: 10px 20px;
+                border-radius: 15px;
+                box-shadow: 0px 5px 4px #696969;
+                a{
+                    color: white;
+                }
+            }
+        } 
+    }
+}
+footer {
+    background-color: $background-color-footer;
+    color: black;
 }

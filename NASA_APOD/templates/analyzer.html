@@ -1,0 +1,28 @@
+{% extends "base2.html" %}
+
+{% block extracss %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles4.css') }}?v={{ timestamp }}">
+{% endblock extracss %}
+
+{% block body %}
+
+<div class="menu">
+    <h1>ToolHub - coś dla ciebie!</h1>
+</div>
+<div class="container">
+
+    <div class="input">
+        <p>Wprowadź tekst, który chcesz przeanalizować:</p>
+        <form action="POST">
+        <textarea name="tekst" id="tekst" cols="60" rows="20"></textarea>
+        <button>Analizuj</button>
+        </form>
+    </div>
+
+    <div class="output">
+    </div>
+
+
+</div>
+
+{% endblock body %}

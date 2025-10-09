@@ -42,7 +42,7 @@ body {
   color: #ffffff;
 }
 .container .menu a:hover {
-  color: #ff2e63;
+  color: #4f5697;
   transform: translateX(5px);
 }
 .container .zawartosc {
@@ -52,6 +52,10 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+.container .zawartosc .brak {
+  font-family: "Arbutus", serif;
+  font-size: 35px;
 }
 .container .zawartosc .miniatura_zdjecie {
   max-width: 100%;
