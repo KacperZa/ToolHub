@@ -1,6 +1,7 @@
 from datetime import date
 from flask import Blueprint, render_template, request, redirect, session, url_for
 from .nasa_api import get_nasa_apod, get_nasa_apod_random, get_nasa_apod_timeline, dzisiaj
+from .simply_func import analiza_zdania
 from .forms import kalendarz_form, User
 from .extensions import cache, db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -28,11 +29,6 @@ def apps():
     ]
     return render_template('apps.html', cards=cards)
 
-@bp.route('/analyzer', methods=['POST', 'GET'])
-def analyzer():
-    # if request.method == 'POST':
-    #     pass 
-    return render_template('analyzer.html')
 
 # Login
 @bp.route('/login', methods=["POST"])
@@ -76,6 +72,34 @@ def dashboard():
 def logout():
     session.pop('username', None)
     return redirect(url_for('main.home'))
+
+@bp.route('/analyzer', methods=['POST', 'GET'])
+def analyzer():
+
+    tekst_analiza = None
+    error = None
+    if request.method == 'POST':
+        # tekst = request.form.get['tekst', ''].strip()
+        tekst = request.form['tekst'].strip()
+        if  not tekst:
+            session['error'] = "Pole nie może być puste"
+        else:
+            # tekst_analiza = analiza_zdania(tekst)
+            analiza_wyniki = analiza_zdania(tekst)
+            if analiza_wyniki:
+                session['tekst_analiza'] = analiza_wyniki
+            else: 
+                session['error'] = "Wprowadzony tekst nie zawiera wyrazów do analizy"
+        
+        redirect(url_for('main.analyzer'))
+
+    tekst_analiza = session.pop('tekst_analiza', None)
+    error = session.pop('error', None)
+
+
+    return render_template('analyzer.html', tekst_analiza = tekst_analiza, error = error)
+
+        
 
 @bp.route('/nasa_home')
 def nasa_home():
