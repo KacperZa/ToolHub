@@ -5,24 +5,29 @@ def analiza_zdania(zdanie, wystapienia_uzytkownika=None):
     if not zdanie:
         return None
     else:
+
+        # Ujednolicenie tekstu
+
         wpis = zdanie.lower()
+
+        # Kopia tekstu
+
         wpis_nowy = wpis
+
+        # Obliczanie ilości znaków interpunkcyjnych
+
         ilosc_znakow_interpunkcyjnych = 0
         for znak in wpis:
             if znak in string.punctuation:
                 ilosc_znakow_interpunkcyjnych +=1
 
 
+        # ILOŚĆ WYRAZÓW
         for znak in string.punctuation:
             wpis = wpis.replace(znak, "")
-
-        # print(f'bez znakow: {wpis}')
-
-        # LISTA Z WYRAZAMI #
+            
         lista = wpis.split()
-        # print(f'lista wyrazow: {lista}')
 
-        # ILOŚĆ WYRAZÓW
         dlugosc_listy = len(lista)
 
         # ILOŚĆ ZNAKÓW
