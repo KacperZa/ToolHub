@@ -12,35 +12,41 @@
 <div class="container">
 
     <div class="input">
-        <p>Wprowadź tekst, który chcesz przeanalizować:</p>
-        <form method="POST" action = "{{url_for('main.analyzer')}}">
-        <textarea name="tekst" id="tekst" cols="60" rows="20"></textarea>
-        <button type="submit">Analizuj</button>
-        </form>
+        <div class="tekst">
+            <p>Wprowadź tekst, który chcesz przeanalizować:</p>
+            <form method="POST" action = "{{url_for('main.analyzer')}}">
+            <textarea name="tekst" id="tekst" cols="60" rows="20"></textarea>
+            <button type="submit">Analizuj</button>
+            </form>
+        </div>
+    </div>
+
+     <div class="return">
+        <a href="{{url_for('main.apps') }}">Powrót</a>
     </div>
 
     <div class="output">
-       
-        {% if error %}
-        <p style="color:red;">{{error}}</p>
+       <div class="tekst">
+            {% if error %}
+            <p style="color:red;">{{error}}</p>
 
-        {% elif tekst_analiza %} 
-        <div class="tekst">
-            <h1>Analiza danych:</h1> <br>
-            Ilość znaków interpunkcyjnych: {{tekst_analiza.znaki_interpun}}<br>
-            Ilość wyrazów: {{tekst_analiza.ilosc_wyrazow}}<br>
-            Ilość znaków: {{tekst_analiza.ilosc_znakow}}<br>
-            Najczęściej występujące słowo: {{tekst_analiza.najczestsze_slowo}}<br>
-            Ilość zdań: {{tekst_analiza.ilosc_zdan}}<br>
-            Średnia długość wyrazów: {{tekst_analiza.srednia_dlugosc}}<br>
-                {% if tekst_analiza.wystapienia is not none %}<br>
-                    Wystąpienia wyrazu "{{tekst_analiza.wystapienia_uzytkownika}}": {{tekst_analiza.wystapienia}}
-                {% endif %}
+            {% elif tekst_analiza %} 
+            <div class="tekst">
+                <h1>Analiza danych:</h1> <br>
+                Ilość znaków interpunkcyjnych: {{tekst_analiza.znaki_interpun}}<br>
+                Ilość wyrazów: {{tekst_analiza.ilosc_wyrazow}}<br>
+                Ilość znaków: {{tekst_analiza.ilosc_znakow}}<br>
+                Najczęściej występujące słowo: {{tekst_analiza.najczestsze_slowo}}<br>
+                Ilość zdań: {{tekst_analiza.ilosc_zdan}}<br>
+                Średnia długość wyrazów: {{tekst_analiza.srednia_dlugosc}}<br>
+                    {% if tekst_analiza.wystapienia is not none %}<br>
+                        Wystąpienia wyrazu "{{tekst_analiza.wystapienia_uzytkownika}}": {{tekst_analiza.wystapienia}}
+                    {% endif %}
+            </div>
+            {% else %}
+                <p>Wprowadź tekst i kliknij przycisk "Analizuj" by zobaczyć wyniki.</p>
+            {% endif %}
         </div>
-        {% else %}
-            <p>Wprowadź tekst i kliknij przycisk "Analizuj" by zobaczyć wyniki.</p>
-        {% endif %}
-        
     </div>
 
 

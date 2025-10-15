@@ -20,8 +20,8 @@ def home():
 def apps():
     cards = [
         {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
-        {"emoji": "🔤", "opis":"Chcesz policzyć wyrazy w tekscie? A może sprawdzić statystyki tekstu? Musisz to sprawdzić!", "url":"main.analyzer"},
-        {"emoji": "🧮", "opis":"Lubisz matematyke? To coś dla ciebie!", "url":"main.nasa_home"},
+        {"emoji": "🔤", "opis":"Chcesz policzyć wyrazy w tekście? A może sprawdzić statystyki tekstu? Musisz to sprawdzić!", "url":"main.analyzer"},
+        {"emoji": "🧮", "opis":"Lubisz matematyke? To coś dla ciebie!", "url":"main.math"},
         {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
         {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
         {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
@@ -72,6 +72,11 @@ def dashboard():
 def logout():
     session.pop('username', None)
     return redirect(url_for('main.home'))
+
+@bp.route('/math')
+def math():
+    return render_template('matma.html')
+    
 
 @bp.route('/analyzer', methods=['POST', 'GET'])
 def analyzer():

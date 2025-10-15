@@ -1,5 +1,6 @@
 body {
   background-color: #afb0c7;
+  background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
 }
 
 .menu {
@@ -14,10 +15,28 @@ body {
   display: flex;
   flex-direction: row-reverse;
 }
+.container .return {
+  display: flex;
+  height: 100%;
+  width: 10%;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 30px;
+  padding: 20px;
+}
+.container .return a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+}
+.container .return a:hover {
+  color: #565656;
+  transform: translateY(-2px);
+}
 .container .output {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 45%;
   height: 100%;
   align-items: center;
   justify-content: center;
@@ -30,15 +49,25 @@ body {
   align-items: center;
   justify-content: center;
 }
+.container .output .tekst {
+  padding: 60px;
+  background-color: white;
+  border-radius: 30px;
+}
 .container .input {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 45%;
   height: 100%;
   align-items: center;
   justify-content: center;
   justify-content: center;
   align-items: center;
+}
+.container .input .tekst {
+  padding: 60px;
+  background-color: white;
+  border-radius: 30px;
 }
 .container .input form textarea {
   display: flex;
@@ -59,9 +88,11 @@ body {
 .container .input textarea {
   width: -moz-fit-content;
   width: fit-content;
+  border: solid 2px black;
+  border-radius: 5px;
 }
 
 footer {
-  background-color: #181b29;
+  background-color: #272932;
   color: white;
 }/*# sourceMappingURL=styles4.css.map */
