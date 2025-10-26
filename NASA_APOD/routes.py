@@ -22,10 +22,6 @@ def apps():
         {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
         {"emoji": "🔤", "opis":"Chcesz policzyć wyrazy w tekście? A może sprawdzić statystyki tekstu? Musisz to sprawdzić!", "url":"main.analyzer"},
         {"emoji": "🧮", "opis":"Lubisz matematyke? To coś dla ciebie!", "url":"main.math"},
-        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
-        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
-        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
-        {"emoji": "🚀", "opis":"Ciekawi ciebie kosmos? Jeśli tak, to wbijaj tutaj!", "url":"main.nasa_home"},
     ]
     return render_template('apps.html', cards=cards)
 
